@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Алхимия трав</title>
+<style>
+body {
+    font-family: "Comic Sans MS", cursive;
+    background: #202124;
+    color: #e8eaed;
+    margin: 0;
+    padding: 12px;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+select {
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: #303134;
+    color: white;
+    font-size: 18px;
+}
+
+.result {
+    margin-top: 10px;
+    padding: 16px;
+    border-radius: 14px;
+    background: #2d2f33;
+    min-height: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    select {
+        font-size: 18px;
+        padding: 16px;
+    }
+
+    .result {
+        font-size: 22px;
+        padding: 18px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<select onchange="updateResult()" id="select1"></select>
+<select onchange="updateResult()" id="select2"></select>
+<select onchange="updateResult()" id="select3"></select>
+
+<div class="result" id="result">
+Результат появится тут
+</div>
+
+</div>
+
+<script>
+let herbs = [
+"Боярышник","Календула","Крапива","Лаванда","Липа","Мать-и-мачеха","Мелисса","Мята перечная","Одуванчик","Подорожник","Ромашка","Рябина","Тысячелистник","Хвощ полевой","Череда","Черника","Шалфей","Эхинацея","Имбирь"
+];
+
+herbs = herbs.sort((a,b)=>a.localeCompare(b,'ru'));
+
+function fillSelect(id){
+    const select = document.getElementById(id);
+    const def = document.createElement('option');
+    def.textContent = 'Выбери траву';
+    def.value = '';
+    select.appendChild(def);
+
+    herbs.forEach(h => {
+        const opt = document.createElement('option');
+        opt.textContent = h;
+        opt.value = h;
+        select.appendChild(opt);
+    });
+}
+
+fillSelect('select1');
+fillSelect('select2');
+fillSelect('select3');
+
+function key(arr){
+    return arr.sort().join('|');
+}
+
+const recipes = {
+    [key(["Подорожник","Календула","Ромашка"])]: "Зелье восстановления",
+    [key(["Подорожник","Тысячелистник","Череда"])]: "Зелье восстановления",
+    [key(["Календула","Ромашка","Шалфей"])]: "Зелье восстановления",
+
+    [key(["Мелисса","Лаванда","Мята перечная"])]: "Зелье концентрации",
+    [key(["Мелисса","Шалфей","Лаванда"])]: "Зелье концентрации",
+    [key(["Мята перечная","Ромашка","Липа"])]: "Зелье концентрации",
+
+    [key(["Крапива","Имбирь","Эхинацея"])]: "Зелье силы",
+    [key(["Крапива","Рябина","Имбирь"])]: "Зелье силы",
+    [key(["Эхинацея","Крапива","Хвощ полевой"])]: "Зелье силы",
+
+    [key(["Боярышник","Рябина","Липа"])]: "Зелье жизненной энергии",
+    [key(["Боярышник","Мелисса","Ромашка"])]: "Зелье жизненной энергии",
+    [key(["Рябина","Липа","Календула"])]: "Зелье жизненной энергии",
+
+    [key(["Мать-и-мачеха","Шалфей","Тысячелистник"])]: "Зелье выносливости",
+    [key(["Шалфей","Липа","Мята перечная"])]: "Зелье выносливости",
+    [key(["Мать-и-мачеха","Череда","Эхинацея"])]: "Зелье выносливости",
+
+    [key(["Подорожник","Крапива","Череда"])]: "Зелье регенерации",
+    [key(["Календула","Тысячелистник","Ромашка"])]: "Зелье регенерации",
+    [key(["Подорожник","Шалфей","Календула"])]: "Зелье регенерации",
+
+    [key(["Крапива","Одуванчик","Тысячелистник"])]: "Зелье сопротивления ядам",
+    [key(["Ромашка","Календула","Шалфей"])]: "Зелье сопротивления ядам",
+    [key(["Одуванчик","Череда","Хвощ полевой"])]: "Зелье сопротивления ядам",
+
+    [key(["Рябина","Черника","Мелисса"])]: "Зелье ночного зрения",
+    [key(["Рябина","Крапива","Лаванда"])]: "Зелье ночного зрения",
+    [key(["Черника","Липа","Мята перечная"])]: "Зелье ночного зрения",
+
+    [key(["Лаванда","Мелисса","Череда"])]: "Зелье скрытности",
+    [key(["Мелисса","Мята перечная","Шалфей"])]: "Зелье скрытности",
+    [key(["Лаванда","Череда","Хвощ полевой"])]: "Зелье скрытности",
+
+    [key(["Мята перечная","Имбирь","Эхинацея"])]: "Зелье усиления чувств",
+    [key(["Лаванда","Ромашка","Мелисса"])]: "Зелье усиления чувств",
+    [key(["Имбирь","Рябина","Мята перечная"])]: "Зелье усиления чувств",
+};
+
+function updateResult(){
+    const s1 = select1.value;
+    const s2 = select2.value;
+    const s3 = select3.value;
+
+    if(!s1 || !s2 || !s3){
+        result.textContent = "Выбери 3 травы";
+        return;
+    }
+
+    const k = key([s1,s2,s3]);
+
+    if(recipes[k]){
+        result.textContent = recipes[k];
+    } else {
+        result.textContent = "Алхемический шлак ☠️";
+    }
+}
+</script>
+
+</body>
+</html>
