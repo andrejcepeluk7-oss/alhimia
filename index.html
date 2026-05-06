@@ -31,7 +31,6 @@ select {
 }
 
 .result {
-    margin-top: 10px;
     padding: 16px;
     border-radius: 14px;
     background: #2d2f33;
@@ -40,21 +39,48 @@ select {
     text-align: center;
 }
 
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
-
-    select {
-        font-size: 18px;
-        padding: 16px;
-    }
-
-    .result {
-        font-size: 22px;
-        padding: 18px;
-    }
+.discovered {
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 14px;
+    background: #2d2f33;
+    font-size: 16px;
 }
+
+.discovered h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+}
+
+.potion {
+    margin-bottom: 12px;
+}
+
+.recipe {
+    margin-left: 10px;
+    opacity: 0.9;
+}
+
+.btn-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+    background: #3a3d42;
+    color: #e8eaed;
+    font-size: 16px;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
 </style>
 </head>
 <body>
@@ -65,8 +91,16 @@ select {
 <select onchange="updateResult()" id="select2"></select>
 <select onchange="updateResult()" id="select3"></select>
 
-<div class="result" id="result">
-Результат появится тут
+<div class="result" id="result">Выбери 3 травы</div>
+
+<div class="btn-row">
+    <button class="btn" onclick="manualSave()">💾 Сохранить</button>
+    <button class="btn" onclick="confirmClear()">🗑 Очистить</button>
+</div>
+
+<div class="discovered">
+<h3>Открытые зелья:</h3>
+<div id="list"></div>
 </div>
 
 </div>
@@ -97,9 +131,7 @@ fillSelect('select1');
 fillSelect('select2');
 fillSelect('select3');
 
-function key(arr){
-    return arr.sort().join('|');
-}
+function key(arr){ return arr.sort().join('|'); }
 
 const recipes = {
     [key(["Подорожник","Календула","Ромашка"])]: "Зелье восстановления",
@@ -143,6 +175,34 @@ const recipes = {
     [key(["Имбирь","Рябина","Мята перечная"])]: "Зелье усиления чувств",
 };
 
+// сохранённые зелья
+let discovered = JSON.parse(localStorage.getItem('discovered') || '{}');
+
+// текущее (НЕ сохранённое) зелье
+let current = null;
+
+function save(){
+    localStorage.setItem('discovered', JSON.stringify(discovered));
+}
+
+function renderList(){
+    const list = document.getElementById('list');
+    const keys = Object.keys(discovered);
+
+    if(keys.length === 0){
+        list.innerHTML = 'Пока ничего не открыто';
+        return;
+    }
+
+    list.innerHTML = keys.map(potion => {
+        const recipesList = discovered[potion]
+            .map(r => `<div class="recipe">${r}</div>`)
+            .join('');
+
+        return `<div class="potion">• <b>${potion}</b>${recipesList}</div>`;
+    }).join('');
+}
+
 function updateResult(){
     const s1 = select1.value;
     const s2 = select2.value;
@@ -150,17 +210,57 @@ function updateResult(){
 
     if(!s1 || !s2 || !s3){
         result.textContent = "Выбери 3 травы";
+        current = null;
         return;
     }
 
-    const k = key([s1,s2,s3]);
+    const arr = [s1,s2,s3];
+    const k = key(arr);
 
     if(recipes[k]){
-        result.textContent = recipes[k];
+        const potion = recipes[k];
+        result.textContent = potion;
+
+        current = {
+            potion,
+            combo: arr.join(' + '),
+            key: k
+        };
+
     } else {
         result.textContent = "Алхемический шлак ☠️";
+        current = null;
     }
 }
+
+function manualSave(){
+    if(!current) return;
+
+    const {potion, combo, key} = current;
+
+    if(!discovered[potion]){
+        discovered[potion] = [];
+    }
+
+    if(!discovered[potion].includes(combo)){
+        discovered[potion].push(combo);
+        save();
+        renderList();
+        alert("Сохранено");
+    } else {
+        alert("Уже сохранено");
+    }
+}
+
+function confirmClear(){
+    if(confirm("Вы точно хотите очистить список всех зелий?")){
+        discovered = {};
+        save();
+        renderList();
+    }
+}
+
+renderList();
 </script>
 
 </body>
