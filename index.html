@@ -2,619 +2,154 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-<title>Состояние тела</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Алхимия реагентов</title>
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
-
-body{
-    background:#181b20;
-    font-family:Arial,sans-serif;
-    color:white;
-    min-height:100vh;
-    overflow-x:hidden;
-}
-
-/* ОСНОВА */
-
-.main{
-    width:100%;
-    min-height:100vh;
-
-    background:#1f2329;
-
-    border-top:2px solid #30353d;
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-/* ЗАГОЛОВОК */
-
-.title{
-    text-align:center;
-
-    font-size:34px;
-    font-weight:bold;
-
-    letter-spacing:3px;
-
-    padding-top:20px;
-}
-
-/* ЧЕЛОВЕК */
-
-.human-wrapper{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    overflow:hidden;
-}
-
-.human{
-
-    position:relative;
-
-    width:320px;
-    height:980px;
-
-    margin-top:10px;
-
-    transform-origin:top center;
-}
-
-/* ОБЩИЙ СТИЛЬ */
-
-.part{
-    position:absolute;
-
-    background:#4fae63;
-
-    border:2px solid #1b1b1b;
-
-    cursor:pointer;
-
-    transition:0.2s;
-}
-
-.part:active{
-    transform:scale(0.97);
-}
-
-/* ГОЛОВА */
-
-.head{
-    width:95px;
-    height:115px;
-
-    left:112px;
-    top:0;
-
-    border-radius:48%;
-}
-
-/* ШЕЯ */
-
-.neck{
-    width:42px;
-    height:34px;
-
-    left:139px;
-    top:100px;
-
-    border-radius:15px;
-}
-
-/* ГРУДЬ */
-
-.chest{
-    width:160px;
-    height:165px;
-
-    left:80px;
-    top:128px;
-
-    border-radius:38px;
-}
-
-/* ЖИВОТ */
-
-.stomach{
-    width:128px;
-    height:150px;
-
-    left:96px;
-    top:282px;
-
-    border-radius:30px;
-}
-
-/* РУКИ */
-
-.bicep-left,
-.bicep-right{
-    width:50px;
-    height:142px;
-
-    border-radius:28px;
-}
-
-.bicep-left{
-    left:42px;
-    top:150px;
-}
-
-.bicep-right{
-    right:42px;
-    top:150px;
-}
-
-/* ПРЕДПЛЕЧЬЯ */
-
-.forearm-left,
-.forearm-right{
-    width:44px;
-    height:132px;
-
-    border-radius:28px;
-}
-
-.forearm-left{
-    left:47px;
-    top:282px;
-}
-
-.forearm-right{
-    right:47px;
-    top:282px;
-}
-
-/* КИСТИ */
-
-.hand-left,
-.hand-right{
-    width:38px;
-    height:52px;
-
-    border-radius:18px;
-}
-
-.hand-left{
-    left:50px;
-    top:406px;
-}
-
-.hand-right{
-    right:50px;
-    top:406px;
-}
-
-/* ЛЯЖКИ */
-
-.thigh-left,
-.thigh-right{
-    width:60px;
-    height:182px;
-
-    border-radius:30px;
-}
-
-.thigh-left{
-    left:98px;
-    top:442px;
-}
-
-.thigh-right{
-    right:98px;
-    top:442px;
-}
-
-/* ИКРЫ */
-
-.calf-left,
-.calf-right{
-    width:48px;
-    height:172px;
-
-    border-radius:26px;
-}
-
-.calf-left{
-    left:104px;
-    top:620px;
-}
-
-.calf-right{
-    right:104px;
-    top:620px;
-}
-
-/* СТОПЫ */
-
-.foot-left,
-.foot-right{
-    width:66px;
-    height:28px;
-
-    border-radius:15px;
-}
-
-.foot-left{
-    left:82px;
-    top:790px;
-}
-
-.foot-right{
-    right:82px;
-    top:790px;
-}
-
-/* POPUP */
-
-.popup{
-
-    position:fixed;
-
-    left:50%;
-    bottom:-400px;
-
-    transform:translateX(-50%);
-
-    width:92%;
-    max-width:360px;
-
-    background:#272c34;
-
-    border:2px solid #3c424c;
-    border-radius:20px 20px 0 0;
-
-    padding:18px;
-
-    z-index:999;
-
-    transition:0.3s;
-}
-
-.popup.active{
-    bottom:0;
-}
-
-.popup-title{
-    text-align:center;
-
-    font-size:20px;
-    font-weight:bold;
-
-    margin-bottom:14px;
-}
-
-/* SELECT */
-
-.popup select{
-
-    width:100%;
-
-    padding:14px;
-
-    background:#1b1e24;
-
-    border:none;
-    border-radius:12px;
-
-    color:white;
-
-    font-size:17px;
-}
-
-/* СТАТУС */
-
-.status{
-    margin-top:14px;
-
-    text-align:center;
-
-    font-size:18px;
-    font-weight:bold;
-}
-
-/* КНОПКА ЗАКРЫТЬ */
-
-.close-btn{
-
-    width:100%;
-
-    margin-top:14px;
-
-    padding:12px;
-
-    border:none;
-    border-radius:12px;
-
-    background:#3a404a;
-
-    color:white;
-
-    font-size:16px;
-
-    cursor:pointer;
-}
-
-/* ===== ТЕЛЕФОН ===== */
-
-@media(max-width:700px){
-
-.title{
-    font-size:26px;
-    padding-top:16px;
-}
-
-.human{
-    transform:scale(0.82);
-    margin-top:-40px;
-}
-
-}
-
-/* ===== МАЛЕНЬКИЕ ТЕЛЕФОНЫ ===== */
-
-@media(max-width:450px){
-
-.title{
-    font-size:22px;
-}
-
-.human{
-    transform:scale(0.68);
-    margin-top:-120px;
-}
-
-.main{
-    min-height:900px;
-}
-
-.popup{
-    width:100%;
-    max-width:none;
-    border-radius:22px 22px 0 0;
-}
-
-}
-
-/* ===== ОЧЕНЬ МАЛЕНЬКИЕ ===== */
-
-@media(max-width:360px){
-
-.human{
-    transform:scale(0.58);
-    margin-top:-180px;
-}
-
-.title{
-    font-size:19px;
-}
-
-}
-
+    body { font-family: "Comic Sans MS", cursive; background: #1a1b1e; color: #e8eaed; margin: 0; padding: 12px; }
+    .container { max-width: 500px; margin: auto; display: flex; flex-direction: column; gap: 14px; }
+    
+    select { padding: 14px; border-radius: 14px; border: none; background: #303134; color: white; font-size: 18px; outline: none; width: 100%; cursor: pointer; border: 1px solid #3c4043; }
+    
+    /* Основное поле результата: по умолчанию текст белый */
+    .result { padding: 20px; border-radius: 14px; background: #2d2f33; min-height: 60px; font-size: 22px; text-align: center; border: 2px dashed #4a4d52; color: #e8eaed; display: flex; align-items: center; justify-content: center; }
+    
+    .btn-row { display: flex; gap: 10px; }
+    button { flex: 1; padding: 12px; border-radius: 12px; border: none; background: #3a3d42; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 16px; }
+    button:hover { background: #4a4d52; }
+    
+    .discovered { padding: 15px; border-radius: 14px; background: #2d2f33; margin-top: 10px; border: 1px solid #3c4043; }
+    h3 { margin-top: 0; border-bottom: 1px solid #4a4d52; padding-bottom: 5px; }
+    /* Убрал синий цвет из названий в списке */
+    #list b { color: #e8eaed; display: block; margin-top: 10px; }
+    #list span { color: #9aa0a6; font-size: 0.85em; display: block; padding-left: 10px; border-left: 2px solid #3c4043; }
 </style>
 </head>
-
 <body>
 
-<div class="main">
+<div class="container">
+    <select id="s1"></select>
+    <select id="s2"></select>
+    <select id="s3"></select>
 
-<div class="title">
-СОСТОЯНИЕ ТЕЛА
-</div>
+    <div class="result" id="result">Выберите реагенты</div>
 
-<div class="human-wrapper">
+    <div class="btn-row">
+        <button onclick="save()">Сохранить рецепт</button>
+        <button onclick="clearAll()">Очистить все</button>
+    </div>
 
-<div class="human">
-
-<div class="part head" id="head"></div>
-
-<div class="part neck" id="neck"></div>
-
-<div class="part chest" id="chest"></div>
-
-<div class="part stomach" id="stomach"></div>
-
-<div class="part bicep-left" id="bicep-left"></div>
-
-<div class="part forearm-left" id="forearm-left"></div>
-
-<div class="part hand-left" id="hand-left"></div>
-
-<div class="part bicep-right" id="bicep-right"></div>
-
-<div class="part forearm-right" id="forearm-right"></div>
-
-<div class="part hand-right" id="hand-right"></div>
-
-<div class="part thigh-left" id="thigh-left"></div>
-
-<div class="part calf-left" id="calf-left"></div>
-
-<div class="part foot-left" id="foot-left"></div>
-
-<div class="part thigh-right" id="thigh-right"></div>
-
-<div class="part calf-right" id="calf-right"></div>
-
-<div class="part foot-right" id="foot-right"></div>
-
-</div>
-
-</div>
-
+    <div class="discovered">
+        <h3>Книга открытых формул:</h3>
+        <div id="list">Пока здесь пусто</div>
+    </div>
 </div>
 
 <script>
+const teaHerbs = ["Боярышник","Календула","Крапива","Лаванда","Липа","Мать-и-мачеха","Мелисса","Мята перечная","Одуванчик","Подорожник","Ромашка","Рябина","Тысячелистник","Хвощ полевой","Череда","Черника","Шалфей","Эхинацея","Имбирь","Росток дерева"];
+const teaBasics = ["Ромашка", "Мята перечная", "Липа"];
 
-/* ЧАСТИ ТЕЛА */
+const reagents = ["Боярышник","Календула","Крапива","Лаванда","Липа","Мать-и-мачеха","Мелисса","Мята перечная","Одуванчик","Подорожник","Ромашка","Рябина","Тысячелистник","Хвощ полевой","Череда","Черника","Шалфей","Эхинацея","Имбирь","Кости","Росток дерева","Органы монстров","Обычные водоросли","Пыльца фей","Антимагические кристаллы","Щупальца","Монеты медные","Паутина"].sort((a,b)=>a.localeCompare(b,'ru'));
 
-const bodyParts=[
+function fill(sel){
+    sel.innerHTML = `<option value="">Выберите реагент</option>`;
+    reagents.forEach(r=>{ let o = document.createElement('option'); o.value = r; o.textContent = r; sel.appendChild(o); });
+}
+[s1, s2, s3].forEach(fill);
 
-["head","Голова"],
-["neck","Шея"],
+function key(arr){ return [...arr].sort((a,b)=>a.localeCompare(b,'ru')).join('|'); }
 
-["chest","Грудь"],
-["stomach","Живот"],
+// Вставлена полная база рецептов из предыдущих итераций
+const recipesRaw = {
+    "Зелье восстановления": [["Подорожник","Календула","Кости"], ["Ромашка","Росток дерева","Календула"], ["Череда","Подорожник","Органы монстров"], ["Календула","Ромашка","Обычные водоросли"], ["Подорожник","Череда","Пыльца фей"], ["Шалфей","Подорожник","Календула"], ["Крапива","Ромашка","Липа"], ["Подорожник","Эхинацея","Черника"], ["Боярышник","Подорожник","Мать-и-мачеха"], ["Кости","Календула","Липа"]],
+    "Зелье концентрации": [["Мелисса","Пыльца фей","Лаванда"], ["Мята перечная","Антимагические кристаллы","Ромашка"], ["Шалфей","Пыльца фей","Мелисса"], ["Лаванда","Ромашка","Антимагические кристаллы"], ["Мята перечная","Шалфей","Пыльца фей"], ["Мелисса","Мята перечная","Антимагические кристаллы"], ["Черника","Пыльца фей","Шалфей"], ["Лаванда","Липа","Мелисса"], ["Росток дерева","Антимагические кристаллы","Шалфей"], ["Черника","Лаванда","Мята перечная"]],
+    "Зелье силы": [["Крапива","Щупальца","Имбирь"], ["Эхинацея","Кости","Органы монстров"], ["Крапива","Монеты медные","Хвощ полевой"], ["Имбирь","Щупальца","Пыльца фей"], ["Крапива","Органы монстров","Обычные водоросли"], ["Эхинацея","Щупальца","Кости"], ["Имбирь","Хвощ полевой","Органы монстров"], ["Крапива","Имбирь","Кости"], ["Щупальца","Монеты медные","Эхинацея"], ["Хвощ полевой","Имбирь","Органы монстров"]],
+    "Зелье жизненной энергии": [["Боярышник","Рябина","Росток дерева"], ["Липа","Пыльца фей","Ромашка"], ["Боярышник","Обычные водоросли","Календула"], ["Рябина","Лаванда","Мелисса"], ["Липа","Росток дерева","Пыльца фей"], ["Боярышник","Липа","Шалфей"], ["Эхинацея","Боярышник","Ромашка"], ["Росток дерева","Мелисса","Одуванчик"], ["Рябина","Эхинацея","Липа"], ["Боярышник","Пыльца фей","Ромашка"]],
+    "Зелье выносливости": [["Мать-и-мачеха","Щупальца","Тысячелистник"], ["Шалфей","Обычные водоросли","Лаванда"], ["Мята перечная","Кости","Ромашка"], ["Тысячелистник","Крапива","Пыльца фей"], ["Мать-и-мачеха","Ромашка","Одуванчик"], ["Хвощ полевой","Мята перечная","Тысячелистник"], ["Крапива","Мать-и-мачеха","Обычные водоросли"], ["Тысячелистник","Кости","Имбирь"], ["Шалфей","Хвощ полевой","Росток дерева"], ["Мать-и-мачеха","Липа","Крапива"]],
+    "Зелье регенерации": [["Подорожник","Органы монстров","Череда"], ["Календула","Пыльца фей","Кости"], ["Ромашка","Росток дерева","Щупальца"], ["Подорожник","Лаванда","Календула"], ["Череда","Обычные водоросли","Органы монстров"], ["Эхинацея","Череда","Ромашка"], ["Подорожник","Черника","Росток дерева"], ["Органы монстров","Календула","Мать-и-мачеха"], ["Череда","Пыльца фей","Липа"], ["Росток дерева","Подорожник","Эхинацея"]],
+    "Сопротивление ядам": [["Одуванчик","Обычные водоросли","Тысячелистник"], ["Череда","Органы монстров","Ромашка"], ["Крапива","Пыльца фей","Календула"], ["Одуванчик","Кости","Рябина"], ["Ромашка","Шалфей","Обычные водоросли"], ["Тысячелистник","Липа","Подорожник"], ["Череда","Мята перечная","Хвощ полевой"], ["Шалфей","Крапива","Эхинацея"], ["Одуванчик","Мать-и-мачеха","Черника"], ["Тысячелистник","Череда","Мелисса"]],
+    "Ночное зрение": [["Рябина","Пыльца фей","Лаванда"], ["Крапива","Обычные водоросли","Мята перечная"], ["Черника","Антимагические кристаллы","Ромашка"], ["Рябина","Шалфей","Пыльца фей"], ["Лаванда","Мелисса","Обычные водоросли"], ["Черника","Мята перечная","Паутина"], ["Антимагические кристаллы","Черника","Лаванда"], ["Рябина","Черника","Липа"], ["Мята перечная","Пыльца фей","Черника"], ["Шалфей","Паутина","Черника"]],
+    "Зелье скрытности": [["Лаванда","Паутина","Череда"], ["Мелисса","Пыльца фей","Обычные водоросли"], ["Мята перечная","Щупальца","Шалфей"], ["Паутина","Росток дерева","Ромашка"], ["Череда","Лаванда","Одуванчик"], ["Паутина","Мелисса","Мята перечная"], ["Обычные водоросли","Череда","Антимагические кристаллы"], ["Паутина","Шалфей","Липа"], ["Лаванда","Мята перечная","Росток дерева"], ["Мелисса","Паутина","Тысячелистник"]],
+    "Усиление чувств": [["Имбирь","Монеты медные","Мята перечная"], ["Ромашка","Пыльца фей","Лаванда"], ["Рябина","Антимагические кристаллы","Шалфей"], ["Мята перечная","Рябина","Обычные водоросли"], ["Лаванда","Череда","Пыльца фей"], ["Имбирь","Антимагические кристаллы","Ромашка"], ["Пыльца фей","Черника","Имбирь"], ["Шалфей","Мята перечная","Монеты медные"], ["Росток дерева","Лаванда","Имбирь"], ["Антимагические кристаллы","Череда","Рябина"]],
+    "Целебный чай": [["Мелисса", "Мята перечная", "Ромашка"], ["Черника", "Рябина", "Липа"], ["Имбирь", "Боярышник", "Липа"], ["Тысячелистник", "Календула", "Шалфей"], ["Черника", "Мята перечная", "Росток дерева"], ["Календула", "Липа", "Ромашка"], ["Имбирь", "Мята перечная", "Черника"]],
+    "Болотный пар": [["Обычные водоросли","Паутина","Мелисса"], ["Обычные водоросли","Череда","Ромашка"]],
+    "Звенящая банка": [["Монеты медные","Крапива","Пыльца фей"], ["Монеты медные","Мята перечная","Шалфей"]],
+    "Липкая неудача": [["Паутина","Одуванчик","Календула"]],
+    "Странный шепот": [["Пыльца фей","Шалфей","Обычные водоросли"]],
+    "Тяжелый взгляд": [["Кости","Лаванда","Росток дерева"]],
+    "Бесполезная сила": [["Имбирь","Монеты медные","Череда"]],
+    "Мокрое сожаление": [["Обычные водоросли","Ромашка","Паутина"]],
+    "Пустой свет": [["Пыльца фей","Антимагические кристаллы","Лаванда"]],
+    "Медленная мысль": [["Мелисса","Шалфей","Ромашка"]],
+    "Вечная пустота": [["Росток дерева","Кости","Обычные водоросли"]],
+    "Тухлое дыхание": [["Обычные водоросли","Кости","Мята перечная"]],
+    "Спутанные волосы": [["Паутина","Лаванда","Росток дерева"]],
+    "Магический сбой": [["Пыльца фей","Антимагические кристаллы","Ромашка"]],
+    "Дрожь силы": [["Щупальца","Крапива","Эхинацея"]],
+    "Взрывная неудача": [["Монеты медные","Кости","Имбирь"]],
+    "Кожный зуд": [["Череда","Одуванчик","Обычные водоросли"]],
+    "Глухой шепот": [["Шалфей","Мелисса","Пыльца фей"]]
+};
 
-["bicep-left","Л. Бицепс"],
-["forearm-left","Л. Предплечье"],
-["hand-left","Л. Кисть"],
-
-["bicep-right","П. Бицепс"],
-["forearm-right","П. Предплечье"],
-["hand-right","П. Кисть"],
-
-["thigh-left","Л. Ляжка"],
-["calf-left","Л. Икра"],
-["foot-left","Л. Стопа"],
-
-["thigh-right","П. Ляжка"],
-["calf-right","П. Икра"],
-["foot-right","П. Стопа"]
-
-];
-
-/* СОЗДАНИЕ POPUP */
-
-bodyParts.forEach(part=>{
-
-const popup=document.createElement("div");
-
-popup.className="popup";
-
-popup.id="popup-"+part[0];
-
-popup.innerHTML=`
-
-<div class="popup-title">
-${part[1]}
-</div>
-
-<select onchange="updatePart('${part[0]}',this.value)">
-
-<option value="100">100%</option>
-<option value="80">80%</option>
-<option value="60">60%</option>
-<option value="40">40%</option>
-<option value="20">20%</option>
-<option value="0">0%</option>
-
-</select>
-
-<div class="status" id="status-${part[0]}">
-Нормально
-</div>
-
-<button class="close-btn"
-onclick="closePopup('${popup.id}')">
-
-Закрыть
-
-</button>
-
-`;
-
-document.body.appendChild(popup);
-
-});
-
-/* ОТКРЫТИЕ */
-
-bodyParts.forEach(part=>{
-
-document.getElementById(part[0])
-.addEventListener("click",()=>{
-
-document.querySelectorAll(".popup")
-.forEach(p=>p.classList.remove("active"));
-
-document
-.getElementById("popup-"+part[0])
-.classList.add("active");
-
-});
-
-});
-
-/* ЗАКРЫТИЕ */
-
-function closePopup(id){
-
-document.getElementById(id)
-.classList.remove("active");
-
+const recipeMap = {};
+for (const [name, combos] of Object.entries(recipesRaw)) {
+    combos.forEach(combo => { recipeMap[key(combo)] = name; });
 }
 
-/* СОСТОЯНИЯ */
+let discovered = JSON.parse(localStorage.getItem('alch_classic_v2') || '{}');
+let current = null;
 
-function updatePart(id,value){
+function update(){
+    let vals = [s1.value, s2.value, s3.value];
+    if(vals.includes("") || new Set(vals).size !== 3) { 
+        result.textContent = "Выберите реагенты"; 
+        result.style.color = "#e8eaed"; // Обычный цвет
+        current = null; return; 
+    }
 
-value=parseInt(value);
-
-const part=document.getElementById(id);
-
-const status=document
-.getElementById("status-"+id);
-
-let color="#4fae63";
-let text="Нормально";
-
-if(value>=80 && value<100){
-
-color="#7ea95c";
-text="Синяк";
-
+    let k = key(vals);
+    if(recipeMap[k]){
+        current = { potion: recipeMap[k], combo: vals.join(" + ") };
+        result.style.color = "#8ab4f8"; // Цвет для зелий
+    } 
+    else if (vals.every(v => teaHerbs.includes(v)) && vals.some(v => teaBasics.includes(v))) {
+        current = { potion: "Обычный травяной чай", combo: vals.join(" + ") };
+        result.style.color = "#81c995"; // Цвет для чая
+    } 
+    else {
+        result.style.color = "#e8eaed"; // Обычный цвет для неудачи
+        current = null;
+    }
+    result.textContent = current ? current.potion : "Алхимическая неудача";
 }
 
-if(value>=60 && value<80){
+[s1,s2,s3].forEach(s => s.onchange = update);
 
-color="#b5ab56";
-text="Рана";
-
+function save(){
+    if(!current) return;
+    if(!discovered[current.potion]) discovered[current.potion] = [];
+    if(!discovered[current.potion].includes(current.combo)) {
+        discovered[current.potion].push(current.combo);
+    }
+    localStorage.setItem('alch_classic_v2', JSON.stringify(discovered));
+    render();
 }
 
-if(value>=40 && value<60){
-
-color="#bf7b52";
-text="Тяжело";
-
+function clearAll(){
+    if(confirm("Сбросить прогресс?")) {
+        discovered = {};
+        localStorage.removeItem('alch_classic_v2');
+        render();
+    }
 }
 
-if(value>=20 && value<40){
-
-color="#b85b5b";
-text="Критично";
-
+function render(){
+    let keys = Object.keys(discovered).sort();
+    list.innerHTML = keys.length 
+        ? keys.map(p => `<b>${p}</b><span>${discovered[p].join("<br>")}</span>`).join("") 
+        : "Пока здесь пусто";
 }
 
-if(value===0){
-
-color="#434343";
-text="Выведено";
-
-}
-
-part.style.background=color;
-
-status.innerText=text;
-
-}
-
+render();
 </script>
-
 </body>
 </html>
